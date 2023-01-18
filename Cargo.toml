@@ -1,0 +1,9 @@
+[package]
+name = "localtime"
+description = "Minimal monotonic unix-time library"
+authors = ["Alexis Sellier <self@cloudhead.io>"]
+version = "1.0.0"
+edition = "2021"
+license = "MIT"
+
+[dependencies]
