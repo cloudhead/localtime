@@ -40,9 +40,14 @@ impl LocalTime {
         }
     }
 
-    /// Construct a local time to whole seconds since Epoch.
+    /// Return whole seconds since Epoch.
     pub fn as_secs(&self) -> u64 {
         (self.millis / 1000).try_into().unwrap()
+    }
+
+    /// Return milliseconds since Epoch.
+    pub fn as_millis(&self) -> u64 {
+        self.millis.try_into().unwrap()
     }
 
     /// Get the duration since the given time.
