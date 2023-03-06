@@ -40,6 +40,11 @@ impl LocalTime {
         }
     }
 
+    /// Construct a local time from milliseconds since Epoch.
+    pub const fn from_millis(millis: u128) -> Self {
+        Self { millis }
+    }
+
     /// Return whole seconds since Epoch.
     pub fn as_secs(&self) -> u64 {
         (self.millis / 1000).try_into().unwrap()
