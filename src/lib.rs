@@ -1,10 +1,14 @@
 use std::sync::atomic;
 use std::time::{SystemTime, UNIX_EPOCH};
 
+#[cfg(feature = "serde")]
+use serde::{Deserialize, Serialize};
+
 /// Local time.
 ///
 /// This clock is monotonic.
 #[derive(Debug, PartialEq, Eq, Clone, Copy, Ord, PartialOrd, Default)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize), serde(transparent))]
 pub struct LocalTime {
     /// Milliseconds since Epoch.
     millis: u128,
@@ -127,6 +131,7 @@ impl std::ops::Add<LocalDuration> for LocalTime {
 
 /// Time duration as measured locally.
 #[derive(Debug, Copy, Clone, PartialOrd, Ord, PartialEq, Eq)]
+#[cfg_attr(feature = "serde", derive(Serialize, Deserialize), serde(transparent))]
 pub struct LocalDuration(u128);
 
 impl LocalDuration {
@@ -183,11 +188,11 @@ impl std::fmt::Display for LocalDuration {
             if fraction > 0 {
                 write!(
                     f,
-                    "{:.2} minutes(s)",
+                    "{:.2} minute(s)",
                     self.as_mins() as f64 + (fraction as f64 / 60.)
                 )
             } else {
-                write!(f, "{} minutes(s)", self.as_mins())
+                write!(f, "{} minute(s)", self.as_mins())
             }
         } else {
             let fraction = self.as_mins() % 60;
